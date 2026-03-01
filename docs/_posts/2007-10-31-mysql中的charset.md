@@ -11,7 +11,7 @@ tags: [技术]
 
 1. 首先是mysql++里面关于字符集的说明，里面提到了关于Unicode不直接支持，是通过UTF8来支持的。但我的程序是MBCS的，没有用Unicode。没啥关系。
 
-2. 网上查询mysql的字符集的资料，提到了一些关于SET NAMES的描述. 按照里面的说法，进mysql命令行的客户端，show variables like \'character_set_%\', 两台机器上都是 character_set_client, character_set_connection,character_set_results几项都是UTF8. 但这就不对了，我程序用的是MBCS(GBK), 并不是UTF8，为啥在我的机器上还能显示对呢？另外，即便是UTF8，显示的也不应该是‘？’啊。
+2. 网上查询mysql的字符集的资料，提到了一些关于SET NAMES的描述. 按照里面的说法，进mysql命令行的客户端，show variables like \'character_set_%\', 两台机器上都是 character_set_client, character_set_connection,character_set_results几项都是UTF8. 但这就不对了，我程序用的是MBCS(GBK), 并不是UTF8，为啥在我的机器上还能显示对呢？另外，即便是UTF8，显示的也不应该是'？'啊。
 
 3. 比了比两台机器MySQL Server目录下的my.ini文件, [mysql]下写的都是default-character-set=utf8, 这倒是和mysql命令行客户端的表现是一致的。
 

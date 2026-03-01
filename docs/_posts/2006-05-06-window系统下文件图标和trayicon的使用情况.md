@@ -2,7 +2,7 @@
 layout: post
 title: "Window系统下文件图标和TrayIcon的使用情况"
 date: 2006-05-06
-tags: [青春涂鸦]
+tags: [技术]
 ---
 
 windows 2000大图标、缩略图 用32X32 256色，没有256色，用16色小图标， 用16X16 256色，没有256色，用16色。
