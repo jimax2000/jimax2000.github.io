@@ -1,0 +1,8 @@
+---
+layout: post
+title: "第一次应用Powershell"
+date: 2010-09-01
+tags: [青春涂鸦]
+---
+
+<p>在日志中要统计一下收到多少次短信，试了试PowshellShell, 确实比较方便</p> <p><coolcode>Select-String e:\\temp\\logger\\*.log -pattern \"收到的短信\" -Encoding \"Default\" | Measure-Object</coolcode></p> <p>日志是用GB码的，所以要带上 -Encoding \"Default\"</p> <p>结果是：</p><pre>Count    : 2947Average  :Sum      :Maximum  :Minimum  :Property :</pre>

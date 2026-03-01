@@ -1,16 +1,37 @@
 ---
 layout: page
-title: About me
-subtitle: Why you'd want to go on a date with me
+title: 关于我
+subtitle: 我是谁，爱谁是谁
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+- 70年代生人
+- 84：全国计算机编程竞赛
+- 86：轻狂少年
+- 88：清华
+- 89：学潮
+- 91：第一份工资
+- 92：人生的第一次低潮
+- 93：大学毕业
+- 95：水木清华
+- 96：人生的第二次低潮
+- 97：心不在焉
+- 98：捷通 
+- 00：结婚
+- 02：博士毕业
+- 03：非典人生
+- 05：和女儿一起成长
+- 06：底线的赌博
+- 08：澳洲风景
+- 09：重回捷通
+- 10：多么痛的领悟
+- 11：最简化生活
+- 12：生活在继续
+- 13：生活在拉扯
+- 14：人生的第三次低潮
+- 16：笑笑的经历
+- 17：笑笑回国
+- 19：捷通的悲哀
+- 22：口罩三年
+- 23：笑笑去美国
+- 26：AI 的精彩和危机
 
-- I rock a great mustache
-- I'm extremely loyal to my family
-
-What else do you need?
-
-### My story
-
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.

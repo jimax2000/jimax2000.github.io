@@ -1,0 +1,19 @@
+<p>&lt;coolcode lang="cpp" linenum="off"&gt;class Base{public:void vvfunc() {}};</p>
+
+<p>class Derived : public Base{</p>
+
+<p>};</p>
+
+<p>int _tmain(int argc, _TCHAR* argv[]){Derived* pd = new Derived;Base* pb = pd;cout « typeid( pb ).name() « endl;   //prints "class Base *"cout « typeid( pd ).name() « endl;   //prints "class Derived *"</p>
+
+<p>try{//      Base * pp = NULL;//      cout « typeid( *pp ).name() « endl;    cout « typeid( *pb ).name() « endl;   //prints "class Derived"    cout « typeid( *pd ).name() « endl;   //prints "class Derived"}catch (std::__non_rtti_object e){    cout « "__non_rtti_object" « endl;}catch (std::bad_typeid e){    cout « "bad_typeid exception" « endl;}delete pd;</p>
+
+<p>return 0;}&lt;/coolcode&gt;</p>
+
+<p>Visual C++ .NET下，如果/GR 未打开，这个程序仍然成功打印.</p>
+
+<p>但如果 public: virtual void vvfunc(), 则 typeid( *pb )， typeid( *pd )的会错误，抛出__non_rtti_object异常。</p>
+
+<p>如果上面注释的两句打开，则会跑出__bad_typeid异常。</p>
+
+<p>__non_rtti_object继承自__bad_typeid.</p>

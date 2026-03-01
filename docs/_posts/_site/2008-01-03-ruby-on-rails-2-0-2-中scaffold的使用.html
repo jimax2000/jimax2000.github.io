@@ -1,0 +1,37 @@
+<p>照着《Web开发敏捷之道》，写里面的depot例子，一开始就遭遇挫折：&lt;coolcode linenum="off" lang="ruby"&gt;class AdminControll &lt; ApplicationController  scaffold :productend&lt;/coolcode&gt;</p>
+
+<p>加了scaffold :product之后，运行提示：undefined method 'scaffold' for ActionController:Class.</p>
+
+<p>直接用后面的depot&gt;runy script/generate scaffold product admin也不管用</p>
+
+<p>上网查了查，应该是2.0.2中不再这样支持了，要用下面的语法：depot&gt;ruby script/generate scaffold product title:string description:text image_url:string</p>
+
+<p>注意，网上有的地方是写ruby script/generate scaffold ModelName [field:type, field:type]但实际上不能写[], 也不能写, ，在这上面折腾了比较长时间. 最后还是通过直接运行ruby script/generate scaffold看它的帮助和示例才明白过来。</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>这样生成的001_create_products.rb里面也自动定义了相关的字段，不用手工添加了。自动生成的和书上例子里面也稍有不同，书中例子是：&lt;coolcode linenum="off" lang="ruby"&gt;class CreateProducts &lt; ActiveRecord::Migration  def self.upcreate_table :products do</td>
+      <td>t</td>
+      <td>t.column :title, :string  t.column :description, :text  t.column :image_url, :string</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>t.timestampsend  end</p>
+
+<p>def self.downdrop_table :products  endend&lt;/coolcode&gt;</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>自动生成的是：&lt;coolcode linenum="off" lang="ruby"&gt;class CreateProducts &lt; ActiveRecord::Migration  def self.upcreate_table :products do</td>
+      <td>t</td>
+      <td>t.string :title  t.text :description  t.string :image_url</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>t.timestampsend  end</p>
+
+<p>def self.downdrop_table :products  endend&lt;/coolcode&gt;</p>

@@ -1,0 +1,25 @@
+<p>一些基本概念，摘自&lt;a href="http://www.hypothetic.org/docs/msn/notification/get_details.php"&gt;http://www.hypothetic.org/docs/msn/notification/get_details.php&lt;/a&gt;</p>
+
+<blockquote><strong>Forward List (FL)</strong>
+
+The forward list, abbreviated as FL, is the list of principals whose presence you are subscribed to. You can expect to be notified about their on-line state, phone numbers, etc. This is what a layman would call their \"contact list\".
+
+This list currently (as of March 23, 2003), has a limit of 150 people, doubled from a previous 75. If you try to add a 151st person, you will receive error 210 and they will not be added.
+
+Everyone in your forward list belongs to one or more groups, identified by their group number. By default, they belong to group 0.
+
+<strong>Reverse List (RL)</strong>
+
+The reverse list, abbreviated as RL, is the list of principals that have you on their forward list. You cannot make modifications to it. If you attempt to add or remove people from this list, you will be immediately disconnected from the NS with no error message.
+
+<strong>Allow List (AL)</strong>
+
+The allow list, abbreviated as AL, is the list of principals that you allow to see your online presence - as opposed to your reverse list, which is the list of people who request to see your online presence. If someone removes you from his or her contact list, he or she is automatically removed from your RL but not your AL. He or she no longer receives online presence from you, but if he or she adds you again, your client can act in the knowledge that you previously allowed him or her to see your presence.
+
+<strong>Block List (BL)</strong>
+
+The block list, abbreviated as BL, is the list of people that are blocked from seeing your online presence. They will never receive your status, and when they try to invite you to a switchboard session, they will be notified that you are offline. No-one can be on the AL and the BL at the same time, and if you try to add someone to both lists, you will receive error 219.</blockquote>
+
+<p>用Miranda, MSN, 还有自己的程序做了些实验，基本上搞清楚了：&lt;li&gt;假设一开始都是新的帐号&lt;li&gt;jimax 加了 xiao,  xiao收到“被加为好友”信息，选择确认，现在xiao里面是 FL, AL, RL; jimax 里面是FL, AL, RL, 双方都能看到对方信息&lt;li&gt;下面 xiao 删除 jimax (MSN里面, 但不阻止）, 此时xiao里面是 AL, RL (只是从FL里删除）， jimax里面是FL, AL (只是RL中删除) jimax 仍然能看到 xiao 的在线信息&lt;li&gt;下面 xiao 阻止 jimax，此时xiao里面是 BL, RL, jimax里面是FL, AL, jimax看不到xiao的在线信息了&lt;li&gt;现在 jimax 删除 xiao （用自己程序）, jimax里面彻底没有（从FL, AL里面都删除了）, xiao里面是 BL&lt;li&gt;现在 xiao 加了 jimax， jimax 里面 FL， AL，RL. jimax 看不到xiao的信息，因为xiao里面是 FL, BL, RL&lt;li&gt;jimax删除xiao(自己程序) RL, BL  （而不是全部删除）， xiao里应该是FL, BL(这里是有些不同的地方：删除的时候，如果FL, AL ==&gt; 0； 如果FL, AL, RL ==&gt; RL, BL)&lt;li&gt;此时xiao删除jimax, jimax里面是BL, xiao里面是BL&lt;li&gt;此时xiao加jimax，jimax得不到“被加为好友”，jimax BL, RL, xiao里面是FL, BL&lt;li&gt;此时jimax加xiao, 变为 FL, AL, RL,  xiao里面是FL, BL，RL , jimax得不到xiao信息,xiao能得到jimax消息&lt;li&gt;xiao 解除阻止，jimax不变 FL, AL, RL, xiao为FL, AL, RL, 则两边都可以得到消息了</p>
+
+<p>原来主要的问题是，MSN里面删除帐号的时候，并不从AL里面删除，这就导致了再次加好友的时候，好友帐号不会再次得到“被加为好友”信息</p>

@@ -1,0 +1,18 @@
+<p>虽然现在要做的WAP版炫铃快递不需要下载图铃，但还是查了查，试了试WAP中下载图铃的方法，结果发现:</p>
+
+<ol>
+  <li>
+    <p>有些WAP网站直接写图铃的URL。但我试验结果是只下载到本地，显示一个包含此对象的页面，并不能直接显示下载界面和去设置铃声，也不会在“下载文件夹”中出现。而且在LG910手机上，只有MMF可以，其它如MIDI, MP3显示"406:不接受的格式", QCP, PMD显示"404:找不到文件"。</p>
+  </li>
+  <li>
+    <p>有些网站中提到用"uplink:download"语法，但我试验结果提示“URL错误”。</p>
+  </li>
+</ol>
+
+<p>查询到下面的页面，可能说出了问题所在：http://club.phpe.net/index.php?act=ST&amp;f=15&amp;t=5188&amp;s=</p>
+
+<p>做了一个月，也总算有点收获，在这里和大家分享一下吧！先说WAP图铃下载，联通的有一个download func，有详细的文档，移动的就直接写出URL！</p>
+
+<p>Download fun（下载类服务）对于下载类业务，CP/SP需要向中国联通申请该类服务，并提交下载内容服务器的主域名或IP地址给中国联通，由中国联通审核能否向CP/SP所提供的服务的主域或IP地址提供下载类服务权限，并在Openwave download fun server中进行相关控制配置。在填写Download的地址中的source时要后跟下载目标的实际URL。例如：&lt;coolcode lang="html" linenum="off"&gt;&lt;A title=Download href="uplink:download?source=http://uniinfo.Unicom.sh.cn/wallpapers/beautifulgirl/2003010930.png&amp;size=13543&amp;object=phone:wallpaper&amp;status=http://uniinfo.unicom.sh.cn/HSWAP/(eexd5r55ajujry55mi1bkyfl)/DLFST/DLFStatus.aspx"&gt;TestPic1&lt;/A&gt;&lt;/coolcode&gt;有关Download Fun更多内容请参考Openwave Download Fun公开技术规范，或者访问：http://www.openwave.com获取更多信息。</p>
+
+<p>因为我是在联通手机上试的，同时又没有申请此类业务，所以会有上面的试验结果。</p>

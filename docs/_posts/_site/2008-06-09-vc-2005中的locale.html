@@ -1,0 +1,19 @@
+<p>连续碰到两次和locale相关的问题，一次是ifstream, 一次是boost::format, 做了些实验记录下来：</p>
+
+<ol>
+  <li>
+    <p>ifstream 的文件名参数其实可以接受char *, 也可以接受wchar_t * 作为参数，如果接受char * 的话，实际上内部也是转换成为wchar_t *，但转换的时候问题就来了，如果此文件名里面有汉字，vc2005就转换不对，这样就打不开文件了。在vc2005中，一开始程序的缺省locale是"C", 也就是std::locale::classic()返回的，但这个locale下，汉字转换是不正确的，所以，要先用 std::locale::global(std::locale(""))这样的语句将locale设到系统缺省的。实际上std::locale::global(std::locale(".936")) 也是一样的。936就是简体中文的codepage(代码页)。 此时用 locale.name() 打印出来的locale名称为： "Chinese_People's Republic of China.936"</p>
+  </li>
+  <li>
+    <p>但是一旦locale变为936了，cout 输出中文就又会有问题，碰到中文就会断掉，而且后面的东西再也显示不出来。这可以通过在ifstream打开文件之后，用std::locale::global(std::locale("C"))再设回缺省locale来解决。</p>
+  </li>
+  <li>
+    <p>locale设为936的另一个问题是，boost::format 中 如果输出数字的话，1234会变成1, 234. 这个问题也可以用上面的方法来解决。另外一个方法是可以用format的第二个参数来做，例如std::locale::classic() 或者std::locale("C");</p>
+  </li>
+  <li>
+    <p>网上说流输出时候也会将1234变为 1,234，但我直接实验cout « 1234 好像没有问题。看到说碰到这种情况，需要用a.imbue(std::locale("C"))。</p>
+  </li>
+  <li>
+    <p>如果ifstream直接用wchar_t *的文件名参数，就很简单了，由于不更改locale就可以打开文件，后面的cout输出汉字也没有问题，boost::format也没有问题。所以竭力推荐这种方法 :)</p>
+  </li>
+</ol>
