@@ -257,7 +257,7 @@ date_format: "%B %-d, %Y"
 #################################################################################
 
 # Output options (more information on Jekyll's site)
-url: "http://localhost:4000"
+url: "http://jimax2000.github.io"
 baseurl: ""
 timezone: "Asia/Shanghai"
 markdown: kramdown
