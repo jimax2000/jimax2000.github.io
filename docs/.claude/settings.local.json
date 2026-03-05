@@ -11,7 +11,9 @@
       "Bash(sleep 5 && curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4000/)",
       "Bash(find _site/2005 -name \"*.html\" 2>/dev/null | head -10)",
       "Bash(curl -s http://localhost:4000/2005-12-14-实用主义者/ | grep -o '<p>[^<]*</p>' | head -5)",
-      "Bash(cd /mnt/d/work/private/jimax2000.github.io/docs/_posts && for f in 2006-*.md; do echo \"=== $f ===\"; done | head -130)"
+      "Bash(cd /mnt/d/work/private/jimax2000.github.io/docs/_posts && for f in 2006-*.md; do echo \"=== $f ===\"; done | head -130)",
+      "Bash(grep -l \"^tags:\" _posts/*.md | head -5 | xargs -I {} sh -c 'echo \"=== {} ===\"; grep \"^tags:\" {}')",
+      "Bash(curl -s http://localhost:4000/categories/ 2>/dev/null | grep -o 'href=\"#[^\"]*\"[^>]*>[^<]*<' | head -10)"
     ]
   }
 }

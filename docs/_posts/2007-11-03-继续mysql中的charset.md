@@ -3,6 +3,7 @@ layout: post
 title: "继续mysql中的charset"
 date: 2007-11-03
 tags: [技术]
+categories: [技术]
 ---
 
 继续折腾mysql的charset。又发现数据库安装到客户的机器上之后，某几个表INSERT一行数据的时候存入的汉字都是\'?\'，但UPDATE的时候又可以修改为正确的汉字。差别是，这几张表的INSERT数据是用存储过程做的，但UPATE是直接在PHP语句做的，而且PHP里面使用了\"SET NAMES \'utf8\'\". 基本认为是存储过程的问题。网上查了资料，[http://unix-cd.com/vc/www/26/2007-06/2948.html](http://unix-cd.com/vc/www/26/2007-06/2948.html)提到了：

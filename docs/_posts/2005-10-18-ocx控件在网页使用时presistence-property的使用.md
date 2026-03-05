@@ -3,6 +3,7 @@ layout: post
 title: "OCX控件在网页使用时Presistence Property的使用"
 date: 2005-10-18
 tags: [技术]
+categories: [技术]
 ---
 
 在网页中使用OCX时，可以使用PARAM，这时候在初始化时这些OCX的属性就会被设置, 如

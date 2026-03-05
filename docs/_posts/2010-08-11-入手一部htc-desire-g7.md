@@ -3,6 +3,7 @@ layout: post
 title: "入手一部HTC Desire G7"
 date: 2010-08-11
 tags: [技术]
+categories: [技术]
 ---
 
 

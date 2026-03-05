@@ -3,6 +3,7 @@ layout: post
 title: "R6025 - pure virtual function call"
 date: 2007-06-04
 tags: [技术]
+categories: [技术]
 ---
 
 今天的一个程序出了 R6025 - pure virtual function call 错误，主要原因是在基类的构造函数中调用了纯虚函数。

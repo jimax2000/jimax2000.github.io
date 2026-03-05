@@ -3,6 +3,7 @@ layout: post
 title: "mysql中的charset"
 date: 2007-10-31
 tags: [技术]
+categories: [技术]
 ---
 
 今天碰到一个问题，用C++写了一个访问mysql的程序，在我自己机器上好好的，到别人的机器上就不对了，汉字都显示成？？。底层使用了mysql++，它再用了mysql的C API接口。

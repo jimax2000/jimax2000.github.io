@@ -3,6 +3,7 @@ layout: post
 title: "MacBook  下安装Win7 ghost版和VMware"
 date: 2010-09-04
 tags: [技术]
+categories: [技术]
 ---
 
 

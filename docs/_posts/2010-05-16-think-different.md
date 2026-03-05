@@ -3,6 +3,7 @@ layout: post
 title: "Think Different"
 date: 2010-05-16
 tags: [技术]
+categories: [技术]
 ---
 
 

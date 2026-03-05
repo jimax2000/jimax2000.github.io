@@ -3,6 +3,7 @@ layout: post
 title: "Powershell创建目录+更改文件名"
 date: 2010-10-13
 tags: [技术]
+categories: [技术]
 ---
 
 

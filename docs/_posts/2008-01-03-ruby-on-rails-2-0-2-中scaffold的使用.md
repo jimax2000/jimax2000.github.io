@@ -3,6 +3,7 @@ layout: post
 title: "Ruby on Rails 2.0.2 中scaffold的使用"
 date: 2008-01-03
 tags: [技术]
+categories: [技术]
 ---
 
 照着《Web开发敏捷之道》，写里面的depot例子，一开始就遭遇挫折：

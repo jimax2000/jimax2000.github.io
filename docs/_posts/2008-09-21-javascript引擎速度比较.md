@@ -3,6 +3,7 @@ layout: post
 title: "JavaScript引擎速度比较"
 date: 2008-09-21
 tags: [技术]
+categories: [技术]
 ---
 
 自从Google的Chrom浏览器推出以来，Javascript的速度就成为大家追的焦点。一个比一个宣称快。

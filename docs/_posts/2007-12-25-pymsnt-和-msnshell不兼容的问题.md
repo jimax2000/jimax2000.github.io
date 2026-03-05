@@ -3,6 +3,7 @@ layout: post
 title: "pyMSNt 和 MSNShell不兼容的问题"
 date: 2007-12-25
 tags: [技术]
+categories: [技术]
 ---
 
 最早用国外的一些Jabber的MSN Gateway(比如jaim.net 和anywise.com上的)，从MSN发送消息发现消息总会丢失，或者提示"无法将以下消息发送给所有接收者:"但发送消息给MSN客户端却总是能成功。但jabbernet.dk上MSN Gateway的就一直都没问题。后来自己安装了pyMSNt，发现也出现挂不上去的问题，开始总以为是pyMSNt的安装或者配置哪里不对。一个朋友又说总是在家里能挂上，在单位就总是出问题。总结了各种现象，才发现，是MSNShell和pyMSNt不兼容的问题。卸载了MSNShell，不管连哪个都很正常了。而msn.jabbernet.dk不是pyMSNt的，（它有个msnnew.jabbernet.dk好象是pyMSNt的）所以一直没有问题。

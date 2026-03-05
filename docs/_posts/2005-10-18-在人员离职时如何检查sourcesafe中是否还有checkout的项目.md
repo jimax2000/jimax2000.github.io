@@ -3,6 +3,7 @@ layout: post
 title: "在人员离职时如何检查SourceSafe中是否还有CheckOut的项目"
 date: 2005-10-18
 tags: [技术]
+categories: [技术]
 ---
 
 虽然平时一直要求在工作时不要把文件都CheckOut出来，而是只CheckOut所需要修改的文件，并且要在修改后及时CheckIn。但有些开发人员仍不能很好执行。因此在人员离职时常常在SourceSafe下留下很多仍然CheckOut的文件，同时也不知道本地是否有已经修改的新版本。

@@ -3,6 +3,7 @@ layout: post
 title: "恢复IIS的ASP.NET支持"
 date: 2005-11-29
 tags: [技术]
+categories: [技术]
 ---
 
 本地的IIS不知道怎么不能支持ASP.NET了，用VS.NET 2003创建一个新的Web Application 就说IIS不支持ASP.NET。使用aspnet_regiis -i -enable恢复了。

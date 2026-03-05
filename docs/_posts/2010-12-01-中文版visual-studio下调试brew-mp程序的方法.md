@@ -3,6 +3,7 @@ layout: post
 title: "中文版Visual Studio下调试Brew MP程序的方法"
 date: 2010-12-01
 tags: [技术]
+categories: [技术]
 ---
 
 

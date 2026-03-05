@@ -3,68 +3,156 @@ layout: page
 title: '标签'
 ---
 
-{% assign date_format = site.date_format | default: "%B %-d, %Y" %}
+<style>
+.tag-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+.tag-entry a {
+  flex: 1;
+  margin: 0;
+}
+.tag-entry .entry-date {
+  margin: 0;
+  margin-left: 15px;
+  font-size: 0.85em;
+  color: #888;
+  white-space: nowrap;
+}
+.post-list {
+  margin-top: 10px;
+}
+.linked-section {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+</style>
 
-{%- capture site_tags -%}
-    {%- for tag in site.tags -%}
-        {{- tag | first -}}{%- unless forloop.last -%},{%- endunless -%}
-    {%- endfor -%}
-{%- endcapture -%}
-{%- assign all_tags = site_tags | split:',' | sort -%}
-
-{%- comment -%} 先显示自定义顺序的标签 {%- endcomment -%}
-{%- assign custom_tags = "小说,青春涂鸦,我的宝贝,技术" | split:',' -%}
-{%- for tag in custom_tags -%}
-  {%- if all_tags contains tag -%}
-    <a href="#{{- tag -}}" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;{{- tag -}}&nbsp;({{site.tags[tag].size}})</a>
-  {%- endif -%}
-{%- endfor -%}
-
-{%- comment -%} 再显示其他标签（按字母顺序） {%- endcomment -%}
-{%- for tag in all_tags -%}
-  {%- unless custom_tags contains tag -%}
-    <a href="#{{- tag -}}" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;{{- tag -}}&nbsp;({{site.tags[tag].size}})</a>
-  {%- endunless -%}
-{%- endfor -%}
+{%- comment -%} 自定义顺序的标签按钮 {%- endcomment -%}
+<a href="#小说" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;小说&nbsp;({{ site.tags["小说"].size }})</a>
+<a href="#昨日情怀" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;昨日情怀&nbsp;({{ site.tags["昨日情怀"].size }})</a>
+<a href="#不可捉摸" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;不可捉摸&nbsp;({{ site.tags["不可捉摸"].size }})</a>
+<a href="#水木清华" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;水木清华&nbsp;({{ site.tags["水木清华"].size }})</a>
+<a href="#诗歌" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;诗歌&nbsp;({{ site.tags["诗歌"].size }})</a>
+<a href="#心情随笔" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;心情随笔&nbsp;({{ site.tags["心情随笔"].size }})</a>
+<a href="#我的宝贝" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;我的宝贝&nbsp;({{ site.tags["我的宝贝"].size }})</a>
+<a href="#技术" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;技术&nbsp;({{ site.tags["技术"].size }})</a>
 
 <div id="full-tags-list">
-{%- comment -%} 先显示自定义顺序的标签 {%- endcomment -%}
-{%- for tag in custom_tags -%}
-  {%- if all_tags contains tag -%}
-    <h2 id="{{- tag -}}" class="linked-section">
-        <i class="fas fa-tag" aria-hidden="true"></i>
-        &nbsp;{{- tag -}}&nbsp;({{site.tags[tag].size}})
-    </h2>
-    <div class="post-list">
-        {%- for post in site.tags[tag] -%}
-            <div class="tag-entry">
-                <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-                <div class="entry-date">
-                    <time datetime="{{- post.date | date_to_xmlschema -}}">{{- post.date | date: date_format -}}</time>
-                </div>
-            </div>
-        {%- endfor -%}
-    </div>
-  {%- endif -%}
-{%- endfor -%}
 
-{%- comment -%} 再显示其他标签（按字母顺序） {%- endcomment -%}
-{%- for tag in all_tags -%}
-  {%- unless custom_tags contains tag -%}
-    <h2 id="{{- tag -}}" class="linked-section">
-        <i class="fas fa-tag" aria-hidden="true"></i>
-        &nbsp;{{- tag -}}&nbsp;({{site.tags[tag].size}})
-    </h2>
-    <div class="post-list">
-        {%- for post in site.tags[tag] -%}
-            <div class="tag-entry">
-                <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-                <div class="entry-date">
-                    <time datetime="{{- post.date | date_to_xmlschema -}}">{{- post.date | date: date_format -}}</time>
-                </div>
-            </div>
-        {%- endfor -%}
-    </div>
-  {%- endunless -%}
-{%- endfor -%}
+{%- comment -%} 小说 {%- endcomment -%}
+<h2 id="小说" class="linked-section">
+    <i class="fas fa-tag" aria-hidden="true"></i>
+    &nbsp;小说&nbsp;({{ site.tags["小说"].size }})
+</h2>
+<div class="post-list">
+    {%- for post in site.tags["小说"] -%}
+        <div class="tag-entry">
+            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
+            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
+        </div>
+    {%- endfor -%}
+</div>
+
+{%- comment -%} 昨日情怀 {%- endcomment -%}
+<h2 id="昨日情怀" class="linked-section">
+    <i class="fas fa-tag" aria-hidden="true"></i>
+    &nbsp;昨日情怀&nbsp;({{ site.tags["昨日情怀"].size }})
+</h2>
+<div class="post-list">
+    {%- for post in site.tags["昨日情怀"] -%}
+        <div class="tag-entry">
+            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
+            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
+        </div>
+    {%- endfor -%}
+</div>
+
+{%- comment -%} 不可捉摸 {%- endcomment -%}
+<h2 id="不可捉摸" class="linked-section">
+    <i class="fas fa-tag" aria-hidden="true"></i>
+    &nbsp;不可捉摸&nbsp;({{ site.tags["不可捉摸"].size }})
+</h2>
+<div class="post-list">
+    {%- for post in site.tags["不可捉摸"] -%}
+        <div class="tag-entry">
+            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
+            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
+        </div>
+    {%- endfor -%}
+</div>
+
+{%- comment -%} 水木清华 {%- endcomment -%}
+<h2 id="水木清华" class="linked-section">
+    <i class="fas fa-tag" aria-hidden="true"></i>
+    &nbsp;水木清华&nbsp;({{ site.tags["水木清华"].size }})
+</h2>
+<div class="post-list">
+    {%- for post in site.tags["水木清华"] -%}
+        <div class="tag-entry">
+            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
+            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
+        </div>
+    {%- endfor -%}
+</div>
+
+{%- comment -%} 诗歌 {%- endcomment -%}
+<h2 id="诗歌" class="linked-section">
+    <i class="fas fa-tag" aria-hidden="true"></i>
+    &nbsp;诗歌&nbsp;({{ site.tags["诗歌"].size }})
+</h2>
+<div class="post-list">
+    {%- for post in site.tags["诗歌"] -%}
+        <div class="tag-entry">
+            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
+            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
+        </div>
+    {%- endfor -%}
+</div>
+
+{%- comment -%} 心情随笔 {%- endcomment -%}
+<h2 id="心情随笔" class="linked-section">
+    <i class="fas fa-tag" aria-hidden="true"></i>
+    &nbsp;心情随笔&nbsp;({{ site.tags["心情随笔"].size }})
+</h2>
+<div class="post-list">
+    {%- for post in site.tags["心情随笔"] -%}
+        <div class="tag-entry">
+            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
+            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
+        </div>
+    {%- endfor -%}
+</div>
+
+{%- comment -%} 我的宝贝 {%- endcomment -%}
+<h2 id="我的宝贝" class="linked-section">
+    <i class="fas fa-tag" aria-hidden="true"></i>
+    &nbsp;我的宝贝&nbsp;({{ site.tags["我的宝贝"].size }})
+</h2>
+<div class="post-list">
+    {%- for post in site.tags["我的宝贝"] -%}
+        <div class="tag-entry">
+            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
+            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
+        </div>
+    {%- endfor -%}
+</div>
+
+{%- comment -%} 技术 {%- endcomment -%}
+<h2 id="技术" class="linked-section">
+    <i class="fas fa-tag" aria-hidden="true"></i>
+    &nbsp;技术&nbsp;({{ site.tags["技术"].size }})
+</h2>
+<div class="post-list">
+    {%- for post in site.tags["技术"] -%}
+        <div class="tag-entry">
+            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
+            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
+        </div>
+    {%- endfor -%}
+</div>
+
 </div>

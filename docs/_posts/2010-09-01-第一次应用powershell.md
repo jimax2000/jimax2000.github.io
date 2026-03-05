@@ -3,6 +3,7 @@ layout: post
 title: "第一次应用Powershell"
 date: 2010-09-01
 tags: [技术]
+categories: [技术]
 ---
 
 

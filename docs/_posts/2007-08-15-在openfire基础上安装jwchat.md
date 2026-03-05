@@ -3,6 +3,7 @@ layout: post
 title: "在openfire基础上安装jwchat"
 date: 2007-08-15
 tags: [技术]
+categories: [技术]
 ---
 
 Openfire 已经直接支持HTTP Binding, 因此jwchat不用再依赖于JHB(JabberHTTPBinding)，但Openfire的Http binding 是以8080端口提供的，因此需要做如下步骤：

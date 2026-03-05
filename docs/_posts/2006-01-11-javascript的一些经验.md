@@ -3,6 +3,7 @@ layout: post
 title: "JavaScript的一些经验"
 date: 2006-01-11
 tags: [技术]
+categories: [技术]
 ---
 
 firefox下 没有obj.innerText，只能用innerHTML

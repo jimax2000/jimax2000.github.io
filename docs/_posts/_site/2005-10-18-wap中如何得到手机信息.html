@@ -1,9 +1,0 @@
-<p>我们可以在ASP中使用下面的句子来检查WAP浏览器发出的所有HTTP头。</p>
-
-<p>&lt;coolcode linenum="off"&gt;&lt;%Response.Write "<br />AllHttp:"Response.Write Request.ServerVariables("ALL_HTTP")Response.Write "<br />AllRaw:"Response.Write Request.ServerVariables("ALL_RAW")%&gt;&lt;/coolcode&gt;ALL_HTTP和ALL_RAWQ的区别在于ALL_HTTP给所有的变量加上了HTTP_前缀，并且将'-'换成了'_' 。</p>
-
-<p>在LG手机(910,950,8188)试验都通过HTTP_X_IMIS 来返回手机的IMIS信息。</p>
-
-<p>网上有说用下述变量来检查的："HTTP_X_NETWORK_INFO"，"HTTP_X_UP_CALLING_LINE_ID"，"HTTP_X_UP_SUBNO"，"DEVICEID"，但在LG手机上都不行。也许在中国移动的手机上可以？</p>
-
-<p>另外，从上面的返回中也可以看到ACCEPT哪些Content-Type。LG910/950上支持了audio/vnd-qcelp, 因此我们的QCP文件是可以试听的，也试验成功了。另外还支持smaf, pmd, midi等，但没有试验。但LG8188上就不可以。这就是WAP1.0和2.0的一个重要区别吧。</p>
