@@ -100,7 +100,7 @@ share-links-active:
 
 # How to display the link to your website in the footer
 # Remove this if you don't want a link in the footer
-url-pretty: "MyWebsite.com"
+url-pretty: "blog.jimax.fun"
 
 # Add the website title to the title of every page
 title-on-all-pages: true
@@ -258,7 +258,7 @@ date_format: "%B %-d, %Y"
 #################################################################################
 
 # Output options (more information on Jekyll's site)
-url: "http://jimax2000.github.io"
+url: "http://blog.jimax.fun"
 baseurl: ""
 timezone: "Asia/Shanghai"
 markdown: kramdown
