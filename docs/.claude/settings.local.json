@@ -13,7 +13,23 @@
       "Bash(curl -s http://localhost:4000/2005-12-14-实用主义者/ | grep -o '<p>[^<]*</p>' | head -5)",
       "Bash(cd /mnt/d/work/private/jimax2000.github.io/docs/_posts && for f in 2006-*.md; do echo \"=== $f ===\"; done | head -130)",
       "Bash(grep -l \"^tags:\" _posts/*.md | head -5 | xargs -I {} sh -c 'echo \"=== {} ===\"; grep \"^tags:\" {}')",
-      "Bash(curl -s http://localhost:4000/categories/ 2>/dev/null | grep -o 'href=\"#[^\"]*\"[^>]*>[^<]*<' | head -10)"
+      "Bash(curl -s http://localhost:4000/categories/ 2>/dev/null | grep -o 'href=\"#[^\"]*\"[^>]*>[^<]*<' | head -10)",
+      "Bash(curl -o /mnt/d/work/private/jimax2000.github.io/docs/assets/nobel-physics-2024.png \"https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/97b9348ec57043c89944fb8543178f50~tplv-obj:768:768.image\")",
+      "Bash(wget -U \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/91.0.4472.124 Safari/537.36\" -O /mnt/d/work/private/jimax2000.github.io/docs/assets/nobel-physics-2024.jpg \"https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/97b9348ec57043c89944fb8543178f50~tplv-obj:768:768.image?_iz=97245&bid=15&from=post&gid=1812395886929932&lk3s=06827d14&x-expires=1780617600&x-signature=C3Grx3C1PSe%2FUCy3WCJpDbwVp38%3D\" 2>&1)",
+      "Bash(curl -s -L -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\" \"https://www.toutiao.com/article/7374379325543449099/\" | head -200)",
+      "Bash(curl -s \"https://www.toutiao.com/article/7374379325543449099/\" -H \"User-Agent: Mozilla/5.0\" | grep -oP 'title:\\\\s*\"\\\\K[^\"]*' | head -1)",
+      "Bash(curl -s \"https://www.toutiao.com/api/article/v2/details?article_id=7374379325543449099\" -H \"User-Agent: Mozilla/5.0\" | python3 -m json.tool 2>/dev/null | head -100)",
+      "WebSearch",
+      "Bash(wget -U \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\" -O /mnt/d/work/private/jimax2000.github.io/docs/assets/python-313-beta.jpg \"https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5c1156a87d7448dfb7197a6027c06553~tplv-tt-post:172:120.jpeg?_iz=97245&bid=15&from=post&gid=1798668035585155&lk3s=06827d14&x-expires=1780617600&x-signature=H1oL%2Fa2HqbyJVXB49HIqe0wd1AI%3D\" 2>&1)",
+      "Bash(curl -L -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://www.toutiao.com/article/7359854119215006271/\" 2>/dev/null | head -200)",
+      "Bash(pip install playwright -q && playwright install chromium -q 2>&1 | tail -5)",
+      "Bash(pip install playwright 2>&1 | tail -5)",
+      "Bash(playwright install chromium 2>&1 | tail -10)",
+      "Bash(python fetch_article.py \"https://www.toutiao.com/article/7360493541262443044/\" 2>&1)",
+      "Bash(python fetch_article.py \"https://www.toutiao.com/w/1796751837807644/\" 2>&1)",
+      "Bash(python fetch_article.py \"https://www.toutiao.com/article/7358484036139991563/\" 2>&1)",
+      "Bash(python fetch_article.py \"https://www.toutiao.com/article/7356620578444411404/\" 2>&1)",
+      "Bash(python fetch_article.py \"https://www.toutiao.com/article/7355665454268154387/\" 2>&1)"
     ]
   }
 }

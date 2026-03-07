@@ -1124,3 +1124,12 @@ pre {
     display: inline-block;
   }
 }
+
+/* --- Image caption --- */
+.img-caption {
+  display: block;
+  text-align: center;
+  font-size: 0.85em;
+  color: #888;
+  margin-top: 0.5em;
+}

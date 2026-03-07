@@ -28,8 +28,25 @@ title: '分类'
 .linked-section {
   margin-top: 30px;
   margin-bottom: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.linked-section i {
+  transition: transform 0.3s ease;
+}
+.linked-section.collapsed i {
+  transform: rotate(-90deg);
+}
+.linked-section.collapsed + .post-list {
+  display: none;
 }
 </style>
+
+<script>
+function toggleCategory(element) {
+  element.classList.toggle('collapsed');
+}
+</script>
 
 {%- comment -%} 自定义顺序的分类按钮 {%- endcomment -%}
 <a href="#小说" class="btn btn-primary tag-btn"><i class="fas fa-folder" aria-hidden="true"></i>&nbsp;小说&nbsp;({{ site.categories["小说"].size }})</a>
@@ -42,7 +59,7 @@ title: '分类'
 <div id="full-tags-list">
 
 {%- comment -%} 小说 {%- endcomment -%}
-<h2 id="小说" class="linked-section">
+<h2 id="小说" class="linked-section" onclick="toggleCategory(this)">
     <i class="fas fa-folder" aria-hidden="true"></i>
     &nbsp;小说&nbsp;({{ site.categories["小说"].size }})
 </h2>
@@ -56,7 +73,7 @@ title: '分类'
 </div>
 
 {%- comment -%} 诗歌 {%- endcomment -%}
-<h2 id="诗歌" class="linked-section">
+<h2 id="诗歌" class="linked-section" onclick="toggleCategory(this)">
     <i class="fas fa-folder" aria-hidden="true"></i>
     &nbsp;诗歌&nbsp;({{ site.categories["诗歌"].size }})
 </h2>
@@ -70,7 +87,7 @@ title: '分类'
 </div>
 
 {%- comment -%} 水木清华 {%- endcomment -%}
-<h2 id="水木清华" class="linked-section">
+<h2 id="水木清华" class="linked-section" onclick="toggleCategory(this)">
     <i class="fas fa-folder" aria-hidden="true"></i>
     &nbsp;水木清华&nbsp;({{ site.categories["水木清华"].size }})
 </h2>
@@ -84,7 +101,7 @@ title: '分类'
 </div>
 
 {%- comment -%} 心情随笔 {%- endcomment -%}
-<h2 id="心情随笔" class="linked-section">
+<h2 id="心情随笔" class="linked-section" onclick="toggleCategory(this)">
     <i class="fas fa-folder" aria-hidden="true"></i>
     &nbsp;心情随笔&nbsp;({{ site.categories["心情随笔"].size }})
 </h2>
@@ -98,7 +115,7 @@ title: '分类'
 </div>
 
 {%- comment -%} 我的宝贝 {%- endcomment -%}
-<h2 id="我的宝贝" class="linked-section">
+<h2 id="我的宝贝" class="linked-section" onclick="toggleCategory(this)">
     <i class="fas fa-folder" aria-hidden="true"></i>
     &nbsp;我的宝贝&nbsp;({{ site.categories["我的宝贝"].size }})
 </h2>
@@ -112,7 +129,7 @@ title: '分类'
 </div>
 
 {%- comment -%} 技术 {%- endcomment -%}
-<h2 id="技术" class="linked-section">
+<h2 id="技术" class="linked-section" onclick="toggleCategory(this)">
     <i class="fas fa-folder" aria-hidden="true"></i>
     &nbsp;技术&nbsp;({{ site.categories["技术"].size }})
 </h2>
