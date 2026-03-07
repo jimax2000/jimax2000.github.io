@@ -29,7 +29,8 @@
       "Bash(python fetch_article.py \"https://www.toutiao.com/w/1796751837807644/\" 2>&1)",
       "Bash(python fetch_article.py \"https://www.toutiao.com/article/7358484036139991563/\" 2>&1)",
       "Bash(python fetch_article.py \"https://www.toutiao.com/article/7356620578444411404/\" 2>&1)",
-      "Bash(python fetch_article.py \"https://www.toutiao.com/article/7355665454268154387/\" 2>&1)"
+      "Bash(python fetch_article.py \"https://www.toutiao.com/article/7355665454268154387/\" 2>&1)",
+      "Bash(for file in _posts/*Mojo*.md; do\n  sed -i 's/```mojo/```python/g' \"$file\"\n  echo \"已处理: $file\"\ndone)"
     ]
   }
 }
