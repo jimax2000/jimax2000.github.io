@@ -1,0 +1,197 @@
+---
+layout: page
+title: '文章'
+---
+
+<style>
+.tag-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+.tag-entry a {
+  flex: 1;
+  margin: 0;
+}
+.tag-entry .entry-date {
+  margin: 0;
+  margin-left: 15px;
+  font-size: 0.85em;
+  color: #888;
+  white-space: nowrap;
+}
+.post-list {
+  margin-top: 10px;
+}
+
+/* 年份标题样式 */
+.year-section h2 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.year-section h2::before {
+  content: "\f133";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 10px;
+  color: #28a745;
+}
+
+/* 侧边栏选中状态 */
+.sidebar-link.active {
+  background-color: #e8f5e9;
+  color: #28a745;
+}
+
+/* 隐藏的年份 */
+.year-section {
+  display: none;
+}
+
+/* 显示选中的年份 */
+.year-section.active {
+  display: block;
+}
+
+/* 文章页面容器宽度 */
+main.container-md {
+  max-width: 1600px !important;
+}
+</style>
+
+<div class="row">
+    <!-- 主内容区：文章列表 -->
+    <div class="col-xl-9 col-lg-9">
+<div id="full-posts-list">
+{%- comment -%} 手动按年份分组文章 {%- endcomment -%}
+{% assign years = "" | split: "" %}
+{% for post in site.posts %}
+  {% assign post_year = post.date | date: "%Y" %}
+  {% unless years contains post_year %}
+    {% assign years = years | push: post_year %}
+  {% endunless %}
+{% endfor %}
+
+{% for year in years %}
+<div id="year-{{- year -}}" class="year-section{% if forloop.first %} active{% endif %}">
+<h2>{{- year -}} 年</h2>
+<div class="post-list">
+    {%- for post in site.posts -%}
+      {% assign post_year = post.date | date: "%Y" %}
+      {% if post_year == year %}
+        <div class="tag-entry">
+            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
+            <span class="entry-date">{{- post.date | date: "%m.%d" -}}</span>
+        </div>
+      {% endif %}
+    {%- endfor -%}
+</div>
+</div>
+{% endfor %}
+</div>
+    </div>
+
+    <!-- 侧边栏：显示年份 -->
+    <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+      <div class="sidebar-wrapper">
+        <div class="sidebar-card sticky-top">
+          <div class="sidebar-section">
+            <h6 class="sidebar-title">
+              <i class="fas fa-clock"></i> 年份
+            </h6>
+            <div class="sidebar-list">
+              {% for year in years %}
+                {% assign count = 0 %}
+                {% for post in site.posts %}
+                  {% assign post_year = post.date | date: "%Y" %}
+                  {% if post_year == year %}
+                    {% assign count = count | plus: 1 %}
+                  {% endif %}
+                {% endfor %}
+<a href="#year-{{- year -}}" class="sidebar-link year-link{% if forloop.first %} active{% endif %}" data-target="year-{{- year -}}">
+                  <span class="sidebar-link-name">{{- year -}}</span>
+                  <span class="sidebar-link-count">{{- count -}}</span>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+// 年份切换功能
+document.addEventListener('DOMContentLoaded', function() {
+  var yearLinks = document.querySelectorAll('.year-link');
+
+  function switchYear(targetId) {
+    // 移除所有 active 状态
+    document.querySelectorAll('.year-link').forEach(function(l) {
+      l.classList.remove('active');
+    });
+    document.querySelectorAll('.year-section').forEach(function(s) {
+      s.classList.remove('active');
+    });
+
+    // 查找对应的链接并添加 active
+    var targetLink = document.querySelector('.year-link[data-target="' + targetId + '"]');
+    if (targetLink) {
+      targetLink.classList.add('active');
+    }
+    var targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      targetSection.classList.add('active');
+    }
+  }
+
+  yearLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = this.getAttribute('data-target');
+      switchYear(targetId);
+    });
+  });
+
+  // 检查 URL hash，自动切换到对应年份
+  var hash = window.location.hash;
+  if (hash) {
+    // 移除 # 号并解码
+    var targetId = decodeURIComponent(hash.substring(1));
+    console.log('Year hash detected:', targetId);
+
+    setTimeout(function() {
+      var targetLink = document.querySelector('.year-link[data-target="' + targetId + '"]');
+      console.log('Found year link:', targetLink);
+
+      if (!targetLink) {
+        document.querySelectorAll('.year-link').forEach(function(link) {
+          if (link.getAttribute('data-target') === targetId) {
+            targetLink = link;
+          }
+        });
+        console.log('Found year link after search:', targetLink);
+      }
+
+      if (targetLink) {
+        targetLink.click();
+      } else {
+        console.log('Link not found, available targets:',
+          Array.from(document.querySelectorAll('.year-link')).map(function(l) {
+            return l.getAttribute('data-target');
+          })
+        );
+      }
+    }, 100);
+  }
+});
+</script>

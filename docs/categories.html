@@ -25,121 +25,186 @@ title: '分类'
 .post-list {
   margin-top: 10px;
 }
-.linked-section {
+
+/* 分类标题样式（去掉点击样式） */
+.category-section h2 {
   margin-top: 30px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  user-select: none;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+  color: #333;
+  display: flex;
+  align-items: center;
 }
-.linked-section i {
-  transition: transform 0.3s ease;
+
+.category-section h2::before {
+  content: "\f07c";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 10px;
+  color: #0066cc;
 }
-.linked-section.collapsed i {
-  transform: rotate(-90deg);
+
+/* 侧边栏选中状态 */
+.sidebar-link.active {
+  background-color: #e8f4f8;
+  color: #0066cc;
 }
-.linked-section.collapsed + .post-list {
+
+/* 隐藏的分类 */
+.category-section {
   display: none;
+}
+
+/* 显示选中的分类 */
+.category-section.active {
+  display: block;
+}
+
+/* 分类页面容器宽度 */
+main.container-md {
+  max-width: 1600px !important;
 }
 </style>
 
-<script>
-function toggleCategory(element) {
-  element.classList.toggle('collapsed');
-}
-</script>
-
-{%- comment -%} 自定义顺序的分类按钮 {%- endcomment -%}
-<a href="#小说" class="btn btn-primary tag-btn"><i class="fas fa-folder" aria-hidden="true"></i>&nbsp;小说&nbsp;({{ site.categories["小说"].size }})</a>
-<a href="#诗歌" class="btn btn-primary tag-btn"><i class="fas fa-folder" aria-hidden="true"></i>&nbsp;诗歌&nbsp;({{ site.categories["诗歌"].size }})</a>
-<a href="#水木清华" class="btn btn-primary tag-btn"><i class="fas fa-folder" aria-hidden="true"></i>&nbsp;水木清华&nbsp;({{ site.categories["水木清华"].size }})</a>
-<a href="#心情随笔" class="btn btn-primary tag-btn"><i class="fas fa-folder" aria-hidden="true"></i>&nbsp;心情随笔&nbsp;({{ site.categories["心情随笔"].size }})</a>
-<a href="#我的宝贝" class="btn btn-primary tag-btn"><i class="fas fa-folder" aria-hidden="true"></i>&nbsp;我的宝贝&nbsp;({{ site.categories["我的宝贝"].size }})</a>
-<a href="#技术" class="btn btn-primary tag-btn"><i class="fas fa-folder" aria-hidden="true"></i>&nbsp;技术&nbsp;({{ site.categories["技术"].size }})</a>
-
+<div class="row">
+    <!-- 主内容区：分类列表 -->
+    <div class="col-xl-9 col-lg-9">
 <div id="full-tags-list">
+{%- comment -%} 预定义的分类顺序 {%- endcomment -%}
+{% assign predefined_categories = "小说,诗歌,水木清华,心情随笔,我的宝贝,技术" | split: "," %}
 
-{%- comment -%} 小说 {%- endcomment -%}
-<h2 id="小说" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-folder" aria-hidden="true"></i>
-    &nbsp;小说&nbsp;({{ site.categories["小说"].size }})
-</h2>
+{%- comment -%} 预定义分类的内容 {%- endcomment -%}
+{% for cat_name in predefined_categories %}
+  {% assign posts = site.categories[cat_name] %}
+  {% if posts.size > 0 %}
+<div id="cat-{{- cat_name -}}" class="category-section{% if forloop.first %} active{% endif %}">
+<h2>{{- cat_name -}}</h2>
 <div class="post-list">
-    {%- for post in site.categories["小说"] -%}
+    {%- for post in posts -%}
         <div class="tag-entry">
             <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
             <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
         </div>
     {%- endfor -%}
 </div>
+</div>
+  {% endif %}
+{% endfor %}
 
-{%- comment -%} 诗歌 {%- endcomment -%}
-<h2 id="诗歌" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-folder" aria-hidden="true"></i>
-    &nbsp;诗歌&nbsp;({{ site.categories["诗歌"].size }})
-</h2>
+{%- comment -%} 未预定义分类的内容 {%- endcomment -%}
+{% for category in site.categories %}
+  {% unless predefined_categories contains category.first %}
+<div id="cat-{{- category.first -}}" class="category-section">
+<h2>{{- category.first -}}</h2>
 <div class="post-list">
-    {%- for post in site.categories["诗歌"] -%}
+    {%- for post in category.last -%}
         <div class="tag-entry">
             <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
             <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
         </div>
     {%- endfor -%}
 </div>
+</div>
+  {% endunless %}
+{% endfor %}
+</div>
+    </div>
 
-{%- comment -%} 水木清华 {%- endcomment -%}
-<h2 id="水木清华" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-folder" aria-hidden="true"></i>
-    &nbsp;水木清华&nbsp;({{ site.categories["水木清华"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.categories["水木清华"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
+    <!-- 侧边栏：显示分类 -->
+    <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+      <div class="sidebar-wrapper">
+        <div class="sidebar-card sticky-top">
+          <div class="sidebar-section">
+            <h6 class="sidebar-title">
+              <i class="fas fa-folder"></i> 分类
+            </h6>
+            <div class="sidebar-list">
+              {%- comment -%} 先显示预定义分类 {%- endcomment -%}
+              {% for cat_name in predefined_categories %}
+                {% assign posts = site.categories[cat_name] %}
+                {% if posts.size > 0 %}
+                <a href="#cat-{{- cat_name -}}" class="sidebar-link category-link{% if forloop.first %} active{% endif %}" data-target="cat-{{- cat_name -}}">
+                  <span class="sidebar-link-name">{{- cat_name -}}</span>
+                  <span class="sidebar-link-count">{{- posts.size -}}</span>
+                </a>
+                {% endif %}
+              {% endfor %}
+
+              {%- comment -%} 然后显示未预定义的分类 {%- endcomment -%}
+              {% for category in site.categories %}
+                {% unless predefined_categories contains category.first %}
+                <a href="#cat-{{- category.first -}}" class="sidebar-link category-link" data-target="cat-{{- category.first -}}">
+                  <span class="sidebar-link-name">{{- category.first -}}</span>
+                  <span class="sidebar-link-count">{{- category.last.size -}}</span>
+                </a>
+                {% endunless %}
+              {% endfor %}
+            </div>
+          </div>
         </div>
-    {%- endfor -%}
+      </div>
+    </div>
 </div>
 
-{%- comment -%} 心情随笔 {%- endcomment -%}
-<h2 id="心情随笔" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-folder" aria-hidden="true"></i>
-    &nbsp;心情随笔&nbsp;({{ site.categories["心情随笔"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.categories["心情随笔"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
-        </div>
-    {%- endfor -%}
-</div>
+<script>
+// 分类切换功能
+document.addEventListener('DOMContentLoaded', function() {
+  var categoryLinks = document.querySelectorAll('.category-link');
 
-{%- comment -%} 我的宝贝 {%- endcomment -%}
-<h2 id="我的宝贝" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-folder" aria-hidden="true"></i>
-    &nbsp;我的宝贝&nbsp;({{ site.categories["我的宝贝"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.categories["我的宝贝"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
-        </div>
-    {%- endfor -%}
-</div>
+  function switchCategory(targetId) {
+    // 移除所有 active 状态
+    document.querySelectorAll('.category-link').forEach(function(l) {
+      l.classList.remove('active');
+    });
+    document.querySelectorAll('.category-section').forEach(function(s) {
+      s.classList.remove('active');
+    });
 
-{%- comment -%} 技术 {%- endcomment -%}
-<h2 id="技术" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-folder" aria-hidden="true"></i>
-    &nbsp;技术&nbsp;({{ site.categories["技术"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.categories["技术"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
-        </div>
-    {%- endfor -%}
-</div>
+    // 查找对应的链接并添加 active
+    var targetLink = document.querySelector('.category-link[data-target="' + targetId + '"]');
+    if (targetLink) {
+      targetLink.classList.add('active');
+    }
+    var targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      targetSection.classList.add('active');
+    }
+  }
 
-</div>
+  categoryLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = this.getAttribute('data-target');
+      switchCategory(targetId);
+    });
+  });
+
+  // 检查 URL hash，自动切换到对应分类
+  var hash = window.location.hash;
+  if (hash) {
+    // 移除 # 号并解码
+    var targetId = decodeURIComponent(hash.substring(1));
+    console.log('Category hash detected:', targetId);
+
+    setTimeout(function() {
+      var targetLink = document.querySelector('.category-link[data-target="' + targetId + '"]');
+      console.log('Found category link:', targetLink);
+
+      if (!targetLink) {
+        document.querySelectorAll('.category-link').forEach(function(link) {
+          if (link.getAttribute('data-target') === targetId) {
+            targetLink = link;
+          }
+        });
+        console.log('Found category link after search:', targetLink);
+      }
+
+      if (targetLink) {
+        targetLink.click();
+      }
+    }, 100);
+  }
+});
+</script>

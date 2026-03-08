@@ -4,10 +4,20 @@ layout: page
 
 {{ content }}
 
-{% assign posts = paginator.posts | default: site.posts %}
+<style>
+  /* 首页特定样式 - 增加容器宽度 */
+  main.container-md {
+    max-width: 1600px !important;
+  }
+</style>
 
-<!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-<ul class="posts-list list-unstyled" role="list">
+<div class="row">
+    <!-- 主内容区：文章列表 -->
+    <div class="col-xl-9 col-lg-9">
+      {% assign posts = paginator.posts | default: site.posts %}
+
+      <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
+      <ul class="posts-list list-unstyled" role="list">
   {% for post in posts %}
   <li class="post-preview">
     <article>
@@ -72,10 +82,10 @@ layout: page
       {% endif %}
 
       <div class="post-entry">
-        {% assign excerpt_length = site.excerpt_length | default: 50 %}
-        {{ post.excerpt | strip_html | truncatewords: excerpt_length }}
-        {% assign excerpt_word_count = post.excerpt | number_of_words %}
-        {% if post.content != post.excerpt or excerpt_word_count > excerpt_length %}
+        {% assign excerpt_length = site.excerpt_length | default: 30 %}
+        {% assign my_excerpt = post.excerpt | strip_html | truncate: 200 %}
+        {{ my_excerpt }}
+        {% if post.excerpt.size > 200 or post.content != post.excerpt %}
           <a href="{{ post.url | absolute_url }}" class="post-read-more">[阅读全文]</a>
         {% endif %}
       </div>
@@ -88,7 +98,7 @@ layout: page
         <ul class="d-inline list-inline" role="list">
           {% for tag in post.tags %}
           <li class="list-inline-item">
-            <a href="{{ '/tags' | absolute_url }}#{{- tag -}}">{{- tag -}}</a>
+            <a href="{{ '/tags' | absolute_url }}#tag-{{- tag -}}">{{- tag -}}</a>
           </li>
           {% endfor %}
         </ul>
@@ -120,3 +130,11 @@ layout: page
   {% endif %}
 </ul>
 {% endif %}
+    </div>
+
+    <!-- 侧边栏 -->
+    <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+      {% include sidebar.html %}
+    </div>
+  </div>
+</div>

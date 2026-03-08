@@ -20,6 +20,7 @@ author: jimax
 ###############################################
 
 navbar-links:
+  文章: "posts"
   分类: "categories"
   标签: "tags"
   关于我: "aboutme"

@@ -1,0 +1,71 @@
+<!-- 侧边栏：显示分类和标签 -->
+<div class="sidebar-wrapper">
+  <div class="sidebar-card sticky-top">
+    {%- comment -%} 预定义的分类顺序 {%- endcomment -%}
+    {% assign predefined_categories = "小说,诗歌,水木清华,心情随笔,我的宝贝,技术" | split: "," %}
+
+    <div class="sidebar-section">
+      <h6 class="sidebar-title">
+        <i class="fas fa-folder"></i> 分类
+      </h6>
+      <div class="sidebar-list">
+        {%- comment -%} 先显示预定义分类 {%- endcomment -%}
+        {% for cat_name in predefined_categories %}
+          {% assign posts = site.categories[cat_name] %}
+          {% if posts.size > 0 %}
+          <a href="{{ '/categories' | relative_url }}#{{- cat_name -}}" class="sidebar-link">
+            <span class="sidebar-link-name">{{- cat_name -}}</span>
+            <span class="sidebar-link-count">{{- posts.size -}}</span>
+          </a>
+          {% endif %}
+        {% endfor %}
+
+        {%- comment -%} 然后显示未预定义的分类 {%- endcomment -%}
+        {% for category in site.categories %}
+          {% unless predefined_categories contains category.first %}
+          <a href="{{ '/categories' | relative_url }}#{{- category.first -}}" class="sidebar-link">
+            <span class="sidebar-link-name">{{- category.first -}}</span>
+            <span class="sidebar-link-count">{{- category.last.size -}}</span>
+          </a>
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <h6 class="sidebar-title">
+        <i class="fas fa-tags"></i> 标签
+      </h6>
+      <div class="sidebar-list" id="sidebar-tags">
+        {% for tag in site.tags %}
+          <a href="{{ '/tags' | relative_url }}#{{- tag.first -}}" class="sidebar-link" data-count="{{- tag.last.size -}}">
+            <span class="sidebar-link-name">{{- tag.first -}}</span>
+            <span class="sidebar-link-count">{{- tag.last.size -}}</span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 按文章数量排序标签
+document.addEventListener('DOMContentLoaded', function() {
+  var tagList = document.getElementById('sidebar-tags');
+  if (tagList) {
+    var links = tagList.getElementsByClassName('sidebar-link');
+    var linksArray = Array.from(links);
+
+    linksArray.sort(function(a, b) {
+      var countA = parseInt(a.getAttribute('data-count'));
+      var countB = parseInt(b.getAttribute('data-count'));
+      return countB - countA; // 降序排序
+    });
+
+    // 重新插入排序后的元素
+    linksArray.forEach(function(link) {
+      tagList.appendChild(link);
+    });
+  }
+});
+</script>

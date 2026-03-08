@@ -25,20 +25,46 @@ title: '标签'
 .post-list {
   margin-top: 10px;
 }
-.linked-section {
+
+/* 标签标题样式 */
+.tag-section h2 {
   margin-top: 30px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  user-select: none;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+  color: #333;
+  display: flex;
+  align-items: center;
 }
-.linked-section i {
-  transition: transform 0.3s ease;
+
+.tag-section h2::before {
+  content: "\f02c";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 10px;
+  color: #f57c00;
 }
-.linked-section.collapsed i {
-  transform: rotate(-90deg);
+
+/* 侧边栏选中状态 */
+.sidebar-link.active {
+  background-color: #fff3e0;
+  color: #f57c00;
 }
-.linked-section.collapsed + .post-list {
+
+/* 隐藏的标签 */
+.tag-section {
   display: none;
+}
+
+/* 显示选中的标签 */
+.tag-section.active {
+  display: block;
+}
+
+/* 标签页面容器宽度 */
+main.container-md {
+  max-width: 1600px !important;
 }
 </style>
 
@@ -48,143 +74,152 @@ function toggleCategory(element) {
 }
 </script>
 
-{%- comment -%} 自定义顺序的标签按钮 {%- endcomment -%}
-<a href="#小说" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;小说&nbsp;({{ site.tags["小说"].size }})</a>
-<a href="#昨日情怀" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;昨日情怀&nbsp;({{ site.tags["昨日情怀"].size }})</a>
-<a href="#不可捉摸" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;不可捉摸&nbsp;({{ site.tags["不可捉摸"].size }})</a>
-<a href="#水木清华" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;水木清华&nbsp;({{ site.tags["水木清华"].size }})</a>
-<a href="#诗歌" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;诗歌&nbsp;({{ site.tags["诗歌"].size }})</a>
-<a href="#心情随笔" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;心情随笔&nbsp;({{ site.tags["心情随笔"].size }})</a>
-<a href="#我的宝贝" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;我的宝贝&nbsp;({{ site.tags["我的宝贝"].size }})</a>
-<a href="#技术" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;技术&nbsp;({{ site.tags["技术"].size }})</a>
-<a href="#Mojo" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;Mojo&nbsp;({{ site.tags["Mojo"].size }})</a>
-
+<div class="row">
+    <!-- 主内容区：标签列表 -->
+    <div class="col-xl-9 col-lg-9">
 <div id="full-tags-list">
+{%- comment -%} 预定义的标签顺序 {%- endcomment -%}
+{% assign predefined_tags = "小说,昨日情怀,不可捉摸,水木清华,诗歌,心情随笔,我的宝贝,技术,Mojo,AI,互联网,随笔,哲理" | split: "," %}
 
-{%- comment -%} 小说 {%- endcomment -%}
-<h2 id="小说" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-tag" aria-hidden="true"></i>
-    &nbsp;小说&nbsp;({{ site.tags["小说"].size }})
-</h2>
+{%- comment -%} 预定义标签的内容 {%- endcomment -%}
+{% for tag_name in predefined_tags %}
+  {% assign posts = site.tags[tag_name] %}
+  {% if posts.size > 0 %}
+<div id="tag-{{- tag_name -}}" class="tag-section{% if forloop.first %} active{% endif %}">
+<h2>{{- tag_name -}}</h2>
 <div class="post-list">
-    {%- for post in site.tags["小说"] -%}
+    {%- for post in posts -%}
         <div class="tag-entry">
             <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
             <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
         </div>
     {%- endfor -%}
 </div>
+</div>
+  {% endif %}
+{% endfor %}
 
-{%- comment -%} 昨日情怀 {%- endcomment -%}
-<h2 id="昨日情怀" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-tag" aria-hidden="true"></i>
-    &nbsp;昨日情怀&nbsp;({{ site.tags["昨日情怀"].size }})
-</h2>
+{%- comment -%} 未预定义标签的内容 {%- endcomment -%}
+{% for tag in site.tags %}
+  {% unless predefined_tags contains tag.first %}
+<div id="tag-{{- tag.first -}}" class="tag-section">
+<h2>{{- tag.first -}}</h2>
 <div class="post-list">
-    {%- for post in site.tags["昨日情怀"] -%}
+    {%- for post in tag.last -%}
         <div class="tag-entry">
             <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
             <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
         </div>
     {%- endfor -%}
 </div>
+</div>
+  {% endunless %}
+{% endfor %}
+</div>
+    </div>
 
-{%- comment -%} 不可捉摸 {%- endcomment -%}
-<h2 id="不可捉摸" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-tag" aria-hidden="true"></i>
-    &nbsp;不可捉摸&nbsp;({{ site.tags["不可捉摸"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.tags["不可捉摸"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
+    <!-- 侧边栏：显示标签 -->
+    <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+      <div class="sidebar-wrapper">
+        <div class="sidebar-card sticky-top">
+          <div class="sidebar-section">
+            <h6 class="sidebar-title">
+              <i class="fas fa-tags"></i> 标签
+            </h6>
+            <div class="sidebar-list">
+              {%- comment -%} 先显示预定义标签 {%- endcomment -%}
+              {% for tag_name in predefined_tags %}
+                {% assign posts = site.tags[tag_name] %}
+                {% if posts.size > 0 %}
+                <a href="#tag-{{- tag_name -}}" class="sidebar-link tag-link{% if forloop.first %} active{% endif %}" data-target="tag-{{- tag_name -}}">
+                  <span class="sidebar-link-name">{{- tag_name -}}</span>
+                  <span class="sidebar-link-count">{{- posts.size -}}</span>
+                </a>
+                {% endif %}
+              {% endfor %}
+
+              {%- comment -%} 然后显示未预定义的标签 {%- endcomment -%}
+              {% for tag in site.tags %}
+                {% unless predefined_tags contains tag.first %}
+                <a href="#tag-{{- tag.first -}}" class="sidebar-link tag-link" data-target="tag-{{- tag.first -}}">
+                  <span class="sidebar-link-name">{{- tag.first -}}</span>
+                  <span class="sidebar-link-count">{{- tag.last.size -}}</span>
+                </a>
+                {% endunless %}
+              {% endfor %}
+            </div>
+          </div>
         </div>
-    {%- endfor -%}
+      </div>
+    </div>
 </div>
 
-{%- comment -%} 水木清华 {%- endcomment -%}
-<h2 id="水木清华" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-tag" aria-hidden="true"></i>
-    &nbsp;水木清华&nbsp;({{ site.tags["水木清华"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.tags["水木清华"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
-        </div>
-    {%- endfor -%}
-</div>
+<script>
+// 标签切换功能
+document.addEventListener('DOMContentLoaded', function() {
+  var tagLinks = document.querySelectorAll('.tag-link');
 
-{%- comment -%} 诗歌 {%- endcomment -%}
-<h2 id="诗歌" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-tag" aria-hidden="true"></i>
-    &nbsp;诗歌&nbsp;({{ site.tags["诗歌"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.tags["诗歌"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
-        </div>
-    {%- endfor -%}
-</div>
+  function switchTag(targetId) {
+    // 移除所有 active 状态
+    document.querySelectorAll('.tag-link').forEach(function(l) {
+      l.classList.remove('active');
+    });
+    document.querySelectorAll('.tag-section').forEach(function(s) {
+      s.classList.remove('active');
+    });
 
-{%- comment -%} 心情随笔 {%- endcomment -%}
-<h2 id="心情随笔" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-tag" aria-hidden="true"></i>
-    &nbsp;心情随笔&nbsp;({{ site.tags["心情随笔"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.tags["心情随笔"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
-        </div>
-    {%- endfor -%}
-</div>
+    // 查找对应的链接并添加 active
+    var targetLink = document.querySelector('.tag-link[data-target="' + targetId + '"]');
+    if (targetLink) {
+      targetLink.classList.add('active');
+    }
+    var targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      targetSection.classList.add('active');
+    }
+  }
 
-{%- comment -%} 我的宝贝 {%- endcomment -%}
-<h2 id="我的宝贝" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-tag" aria-hidden="true"></i>
-    &nbsp;我的宝贝&nbsp;({{ site.tags["我的宝贝"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.tags["我的宝贝"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
-        </div>
-    {%- endfor -%}
-</div>
+  tagLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = this.getAttribute('data-target');
+      switchTag(targetId);
+    });
+  });
 
-{%- comment -%} 技术 {%- endcomment -%}
-<h2 id="技术" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-tag" aria-hidden="true"></i>
-    &nbsp;技术&nbsp;({{ site.tags["技术"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.tags["技术"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
-        </div>
-    {%- endfor -%}
-</div>
+  // 检查 URL hash，自动切换到对应标签
+  var hash = window.location.hash;
+  if (hash) {
+    console.log('Hash detected:', hash);
+    // 移除 # 号并解码
+    var targetId = decodeURIComponent(hash.substring(1));
+    console.log('Target ID:', targetId);
 
-{%- comment -%} Mojo {%- endcomment -%}
-<h2 id="Mojo" class="linked-section" onclick="toggleCategory(this)">
-    <i class="fas fa-tag" aria-hidden="true"></i>
-    &nbsp;Mojo&nbsp;({{ site.tags["Mojo"].size }})
-</h2>
-<div class="post-list">
-    {%- for post in site.tags["Mojo"] -%}
-        <div class="tag-entry">
-            <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
-            <span class="entry-date">{{- post.date | date: "%Y.%m.%d" -}}</span>
-        </div>
-    {%- endfor -%}
-</div>
+    // 延迟执行，确保 DOM 已完全加载
+    setTimeout(function() {
+      var targetLink = document.querySelector('.tag-link[data-target="' + targetId + '"]');
+      console.log('Found link:', targetLink);
 
-</div>
+      if (!targetLink) {
+        // 如果没找到，尝试在所有链接中搜索（处理中文编码问题）
+        document.querySelectorAll('.tag-link').forEach(function(link) {
+          if (link.getAttribute('data-target') === targetId) {
+            targetLink = link;
+          }
+        });
+        console.log('Found link after search:', targetLink);
+      }
+
+      if (targetLink) {
+        targetLink.click();
+      } else {
+        console.log('Link not found, available targets:',
+          Array.from(document.querySelectorAll('.tag-link')).map(function(l) {
+            return l.getAttribute('data-target');
+          })
+        );
+      }
+    }, 100);
+  }
+});
+</script>

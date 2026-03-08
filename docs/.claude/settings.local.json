@@ -30,7 +30,9 @@
       "Bash(python fetch_article.py \"https://www.toutiao.com/article/7358484036139991563/\" 2>&1)",
       "Bash(python fetch_article.py \"https://www.toutiao.com/article/7356620578444411404/\" 2>&1)",
       "Bash(python fetch_article.py \"https://www.toutiao.com/article/7355665454268154387/\" 2>&1)",
-      "Bash(for file in _posts/*Mojo*.md; do\n  sed -i 's/```mojo/```python/g' \"$file\"\n  echo \"已处理: $file\"\ndone)"
+      "Bash(for file in _posts/*Mojo*.md; do\n  sed -i 's/```mojo/```python/g' \"$file\"\n  echo \"已处理: $file\"\ndone)",
+      "Bash(sed -i 's/post\\\\\\\\\\\\.tags\\\\\\\\\\\\.size/post.tags.size/g' tags.html && sed -i 's/<div class=\"tag-entry\">            <div class=\"<div class=\"tag-entry\">\\\\n            <div class=\"/g' tags.html && echo \"格式已修复\")",
+      "Bash(git checkout tags.html 2>/dev/null && echo \"已恢复 tags.html\")"
     ]
   }
 }
